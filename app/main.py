@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from api.robot_api import RobotApi
 from model.response import Position
+from neuralnetwork.neural_network import NeuralNetwork
 
 app = FastAPI()
 
@@ -22,7 +23,9 @@ async def getObstacle():
 @app.post("/processObstacle")
 async def processObstacle(request: Position):
     robot_api = RobotApi()
-    response = await robot_api.make_request("POST", request)
+    neural_network = NeuralNetwork()
+    nn_output = neural_network.process(request=request)
+    response = await robot_api.make_request("POST", nn_output)
     if(response.Desc == "OK"):
         return response
     else:
