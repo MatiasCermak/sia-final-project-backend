@@ -2,7 +2,7 @@ from simple_perceptron import SimplePerceptron as SP
 import numpy as np
 
 class MultiplePerceptron():
-    def __init__(self, learning_rate=0.1, bias=1, class1=1, class2=0, epochs=1000):
+    def __init__(self, learning_rate=0.1, bias=0.001, class1=1, class2=0, epochs=1000):
         self.__learning_rate = learning_rate
         self.__bias = bias
         self.__class1 = class1
@@ -25,3 +25,4 @@ class MultiplePerceptron():
         for simple_perceptron in self.__simple_perceptrons:
             outputs.append(simple_perceptron.predict_set(X))
         return outputs
+
