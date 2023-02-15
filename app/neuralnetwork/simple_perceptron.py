@@ -9,7 +9,7 @@ class SimplePerceptron():
         self.__epochs = epochs
     
     def fit(self, X, y):
-        self.__weights = np.random.random(X.shape[1])
+        self.__weights = np.random.random(np.shape(X[1]))
         for _ in range(self.__epochs):
             for xi, target in zip(X, y):
                 prediction = self.__predict(xi)
@@ -20,7 +20,7 @@ class SimplePerceptron():
                     self.__bias += update
     
     def __predict(self, X):
-        activation = np.dot(X, self.weights) + self.__bias
+        activation = np.dot(X, self.__weights) + self.__bias
         return self.__class1 if activation >= 0 else self.__class2
     
     def predict_set(self, X):

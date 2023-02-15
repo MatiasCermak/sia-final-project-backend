@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from api.robot_api import RobotApi
 from model.response import Position
 from neuralnetwork.neural_network import NeuralNetwork
+import uvicorn
 
 app = FastAPI()
 neural_network = NeuralNetwork()
@@ -33,3 +34,6 @@ async def processObstacle(request: Position):
     else:
         response = await robot_api.make_request("GET")
     return response
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

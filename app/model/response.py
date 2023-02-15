@@ -8,21 +8,7 @@ class Position(BaseModel):
     M1: str | None = None
     M2: str | None = None
     
-    class Config:
-        validate_all = False
 
-    @validator("M1")
-    def check_m1(cls, value):
-        if value is None:
-            raise ValueError("M1 can't be None")
-        return value
-
-    @validator("M2")
-    def check_m2(cls, value):
-        if value is None:
-            raise ValueError("M2 can't be None")
-        return value
-    
     def to_array(self):
         array = []
         if self.S1 != None:

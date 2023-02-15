@@ -1,6 +1,5 @@
-from multiple_perceptron import MultiplePerceptron as MP
+from neuralnetwork.multiple_perceptron import MultiplePerceptron as MP
 from model.response import Position
-import numpy as np
 from utils.constants import TRAINING_SET
 
 class NeuralNetwork():
@@ -11,7 +10,7 @@ class NeuralNetwork():
         self.__train_set = TRAINING_SET
         self.train(TRAINING_SET[1], TRAINING_SET[2], X=TRAINING_SET[0])
     
-    def train(self, *args, X):
+    def train(self, args, X):
         self.__net.fit(args=args, X=X)
     
     def process(self, request):
@@ -19,8 +18,8 @@ class NeuralNetwork():
         result = Position()
         entry = [data[0:4]]
         prediction = self.__net.predict_set(entry)
-        prediction = prediction.reshape(1,2)[0]
-        result.from_array(entry+prediction)
+        prediction = prediction
+        result.from_array(entry[0]+prediction)
         return result
     
     def update(self, x, y1, y2):
