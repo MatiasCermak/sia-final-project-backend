@@ -25,6 +25,6 @@ class RobotApi():
             if response.status_code != 200:
                 raise ValueError("Invalid status code")
 
-            return Response(Resp=Position(**json_response[0]["Resp"]), Desc=json_response[0]["Desc"])
+            return Response.parse_obj(json_response[0])
         except:
-            return Response(Resp=Position(), Desc="KO")
+            return Response(Resp="KO", Desc="")
