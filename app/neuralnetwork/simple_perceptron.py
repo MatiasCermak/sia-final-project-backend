@@ -5,6 +5,8 @@ class SimplePerceptron():
         self.__learning_rate = learning_rate
         self.__bias = bias
         self.__use_bias = use_bias
+        if not use_bias:
+            self.__bias = 0
         self.__class1 = class1
         self.__class2 = class2
         self.__epochs = epochs
