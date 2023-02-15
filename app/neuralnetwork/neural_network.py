@@ -6,7 +6,7 @@ class NeuralNetwork():
     __train_set = []
 
     def __init__(self):
-        self.__net = MP(learning_rate=0.35, class2=-1)
+        self.__net = MP(learning_rate=0.35, class2=-1, use_bias=False)
         self.__train_set = TRAINING_SET
         self.train(TRAINING_SET[1], TRAINING_SET[2], X=TRAINING_SET[0])
     

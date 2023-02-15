@@ -1,9 +1,10 @@
 import numpy as np
 
 class SimplePerceptron():
-    def __init__(self, learning_rate=0.1, bias=0.001, class1=1, class2=0, epochs=1000):
+    def __init__(self, learning_rate=0.1, bias=0.001, class1=1, class2=0, epochs=1000, use_bias=True):
         self.__learning_rate = learning_rate
         self.__bias = bias
+        self.__use_bias = use_bias
         self.__class1 = class1
         self.__class2 = class2
         self.__epochs = epochs
@@ -16,7 +17,7 @@ class SimplePerceptron():
                 error = target - prediction
                 update = self.__learning_rate * error
                 self.__weights += update * xi
-                if self.__bias < 1:
+                if self.__bias < 1 and self.__use_bias:
                     self.__bias += update
     
     def __predict(self, X):
