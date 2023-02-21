@@ -18,7 +18,7 @@ class SimplePerceptron():
                 prediction = self.__predict(xi)
                 error = target - prediction
                 update = self.__learning_rate * error
-                self.__weights += update * xi
+                self.__weights += np.multiply(xi, update)
                 if self.__bias < 1 and self.__use_bias:
                     self.__bias += update
     

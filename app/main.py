@@ -35,15 +35,14 @@ async def processObstacle(request: Position):
     robot_api = RobotApi()
     nn_output = neural_network.process(request=request)
     response = await robot_api.make_request("POST", nn_output)
-    if(response.Desc == "OK"):
+    if(response.Resp == "OK"):
         datos = nn_output.to_array()
-        neural_network.update(x=datos[0:4], y1=datos[4], y2=datos[5])
-        return response
-    else:
+        neural_network.update(x=[datos[0:4]], y1=datos[4], y2=datos[5])
         response = await robot_api.make_request("GET")
         response.Resp.__setattr__("M1", nn_output.M1)
         response.Resp.__setattr__("M2", nn_output.M2)
+    response.__setattr__("NNResponse", nn_output);
     return response
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8080)

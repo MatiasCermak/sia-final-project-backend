@@ -51,3 +51,4 @@ class Position(BaseModel):
 class Response(BaseModel):
     Resp: Position | str
     Desc: str
+    NNResponse: Position | None
