@@ -38,8 +38,6 @@ async def processObstacle(request: Position):
     if(response.Desc == "OK"):
         datos = nn_output.to_array()
         neural_network.update(x=datos[0:4], y1=datos[4], y2=datos[5])
-        return response
-    else:
         response = await robot_api.make_request("GET")
         response.Resp.__setattr__("M1", nn_output.M1)
         response.Resp.__setattr__("M2", nn_output.M2)
