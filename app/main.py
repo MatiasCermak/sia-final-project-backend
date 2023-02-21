@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.robot_api import RobotApi
-from model.response import Position
+from model.response import Position, Response
 from neuralnetwork.neural_network import NeuralNetwork
 import uvicorn
 
@@ -34,10 +34,14 @@ async def getObstacle():
 async def processObstacle(request: Position):
     robot_api = RobotApi()
     nn_output = neural_network.process(request=request)
-    response = await robot_api.make_request("POST", nn_output)
+    datos = nn_output.to_array()
+    if datos[0:4] in neural_network.train_set()[0]:
+        response = Response(Resp="OK", Desc="")
+    else:
+        response = await robot_api.make_request("POST", nn_output)
+    
     if(response.Resp == "OK"):
-        datos = nn_output.to_array()
-        neural_network.update(x=[datos[0:4]], y1=datos[4], y2=datos[5])
+        neural_network.update(x=datos[0:4], y1=datos[4], y2=datos[5])
         response = await robot_api.make_request("GET")
         response.Resp.__setattr__("M1", nn_output.M1)
         response.Resp.__setattr__("M2", nn_output.M2)

@@ -23,8 +23,11 @@ class NeuralNetwork():
     
     def update(self, x, y1, y2):
         if not x in self.__train_set[0]:
-            new_entry = self.__train_set[0] + x
+            new_entry = self.__train_set[0] + [x]
             new_target_1 = self.__train_set[1] + [y1]
             new_target_2 = self.__train_set[2] + [y2]
             self.train([new_target_1, new_target_2], X=new_entry)
             self.__train_set = [new_entry, new_target_1, new_target_2]
+
+    def train_set(self):
+        return self.__train_set
