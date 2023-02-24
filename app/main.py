@@ -35,10 +35,10 @@ async def getObstacle():
 async def processObstacle(request: Position):
     robot_api = RobotApi()
     nn_output = neural_network.process(request=request)
-    response = await robot_api.make_request("POST", nn_output)
+    response = robot_api.make_request("POST", nn_output)
     
     if(response.Resp == "OK"):
-        response = await robot_api.make_request("GET")
+        response = robot_api.make_request("GET")
         response.Resp.__setattr__("M1", nn_output.M1)
         response.Resp.__setattr__("M2", nn_output.M2)
     response.__setattr__("NNResponse", nn_output);
