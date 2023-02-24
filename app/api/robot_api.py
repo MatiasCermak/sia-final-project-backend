@@ -9,7 +9,7 @@ class RobotApi():
     def __init__(self, endpoint: str = API_BASE_URL):
         self.endpoint = endpoint
 
-    async def make_request(self, method: str, data: Optional[Position] = None) -> Response:
+    def make_request(self, method: str, data: Optional[Position] = None) -> Response:
         try:
             if method == "POST" and not isinstance(data, Position):
                 raise ValueError("Data must be an instance of Position when making a POST request")

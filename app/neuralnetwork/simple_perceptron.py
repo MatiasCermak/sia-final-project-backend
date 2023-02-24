@@ -14,7 +14,8 @@ class SimplePerceptron():
     
     def fit(self, X, y):
         if len(self.__weights) == 0:
-            self.__weights = np.random.random(np.shape(X[1]))
+            func = np.vectorize(lambda t: float(1) if t > 0 else float(-1))
+            self.__weights = func(np.subtract(np.multiply(np.random.random(np.shape(X[1])), 2), 1))
         for _ in range(self.__epochs):
             for xi, target in zip(X, y):
                 prediction = self.__predict(xi)

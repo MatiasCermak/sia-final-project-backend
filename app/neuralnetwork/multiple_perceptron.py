@@ -1,7 +1,7 @@
 from neuralnetwork.simple_perceptron import SimplePerceptron as SP
 
 class MultiplePerceptron():
-    def __init__(self, learning_rate=0.1, bias=0.001, class1=1, class2=0, epochs=1000, use_bias=True, weights=[], number_outputs=1):
+    def __init__(self, learning_rate=[0.1, 0.1], bias=[0.001, 0.001], class1=1, class2=0, epochs=[1000, 1000], use_bias=[True, True], weights=[], number_outputs=2):
         self.__learning_rate = learning_rate
         self.__bias = bias
         self.__use_bias = use_bias
@@ -11,12 +11,12 @@ class MultiplePerceptron():
         self.__weights = weights
         self.__simple_perceptrons = []
         for index in range(number_outputs):
-            simple = SP(learning_rate=self.__learning_rate, 
-                        bias=self.__bias, 
+            simple = SP(learning_rate=self.__learning_rate[index], 
+                        bias=self.__bias[index], 
                         class1=self.__class1, 
                         class2=self.__class2, 
-                        epochs=self.__epochs,
-                        use_bias=self.__use_bias,
+                        epochs=self.__epochs[index],
+                        use_bias=self.__use_bias[index],
                         weights=self.__weights[index] if len(self.__weights) != 0 else [])
             self.__simple_perceptrons.append(simple)
 
