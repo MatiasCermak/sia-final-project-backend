@@ -60,11 +60,12 @@ async def processObstacle(request: Position):
 def testNetwork():
     global NEURAL_NETWORK_TESTS
     NEURAL_NETWORK_TESTS.clear()
-    errors = 0
     robot_api = RobotApi()
-    distinct_positions = []
-    respuestas = ""
-    for id  in NEURAL_NETWORK_MODELS:
+
+    for id in NEURAL_NETWORK_MODELS:
+        errors = 0
+        distinct_positions = []
+        respuestas = ""
         while len(distinct_positions) < 9:
             get_response = robot_api.make_request("GET")
             if get_response.Resp in distinct_positions:
