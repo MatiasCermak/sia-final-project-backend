@@ -44,20 +44,27 @@ async def processObstacle(request: Position):
     response.__setattr__("NNResponse", nn_output);
     return response
 
-if __name__ == "__main__":
+@app.get("/test")
+async def testNetwork():
+    errors = 0
     robot_api = RobotApi()
-    correct_answers = 0
+    distinct_positions = []
+    respuestas = ""
+    while len(distinct_positions) < 9 :
+        get_response = robot_api.make_request("GET")
+        if get_response.Resp in distinct_positions:
+            continue
+        distinct_positions.append(get_response.Resp)
+        nn_output = neural_network.process(request=get_response.Resp)
+        post_response = robot_api.make_request("POST", nn_output)
+        post_response.__setattr__("NNResponse", nn_output)
+        respuestas += "Resp: " + str(post_response.Resp) + "Desc: " + post_response.Desc + "NNResponse: " + str(post_response.NNResponse) + "\n"
+        if(post_response.Resp == "KO"):
+            errors += 1
+    post_response.__setattr__("Resp", "Testeo completo")
+    post_response.__setattr__("Desc", "Errores en testeo: "+str(errors))
+    post_response.__setattr__("NNResponse", respuestas)
+    return post_response
 
-    for entry in TESTING_SET:
-        request=Position()
-        request.from_array(entry)
-        nn_output = neural_network.process(request=request)
-        print("Request:")
-        print(nn_output)
-        response = robot_api.make_request("POST", nn_output)
-        if(response.Resp == "OK"):
-            print("Correcto")
-            correct_answers += 1
-        print("")
-    print("Correct Answers: ")
-    print(correct_answers)
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8080)

@@ -1,7 +1,9 @@
 from neuralnetwork.simple_perceptron import SimplePerceptron as SP
+from neuralnetwork.no_vectorial_sp import NVSimplePerceptron as NVSP
 
 class MultiplePerceptron():
-    def __init__(self, learning_rate=[0.1, 0.1], bias=[0.001, 0.001], class1=1, class2=0, epochs=[1000, 1000], use_bias=[True, True], weights=[], number_outputs=2):
+    def __init__(self, learning_rate=[0.1, 0.1], bias=[0.001, 0.001], class1=1, class2=0, epochs=[1000, 1000], use_bias=[True, True], weights=[], number_outputs=2,
+                        vectorizar=True):
         self.__learning_rate = learning_rate
         self.__bias = bias
         self.__use_bias = use_bias
@@ -10,8 +12,9 @@ class MultiplePerceptron():
         self.__epochs = epochs
         self.__weights = weights
         self.__simple_perceptrons = []
+        perceptron = SP if vectorizar == True else NVSP
         for index in range(number_outputs):
-            simple = SP(learning_rate=self.__learning_rate[index], 
+            simple = perceptron(learning_rate=self.__learning_rate[index], 
                         bias=self.__bias[index], 
                         class1=self.__class1, 
                         class2=self.__class2, 

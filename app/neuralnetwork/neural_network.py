@@ -6,9 +6,10 @@ from utils.constants import TRAINING_SET
 class NeuralNetwork():
     __train_set = []
 
-    def __init__(self, weights=[], learning_rate=[], bias=[], class1=1, class2=-1, epochs=[], use_bias=[], number_outputs=2):
+    def __init__(self, weights=[], learning_rate=[], bias=[], class1=1, class2=-1, epochs=[], use_bias=[], number_outputs=2,
+                        vectorizar=True):
         self.__net = MP(learning_rate=learning_rate, class2=class2,
-                        use_bias=use_bias, weights=weights, number_outputs=number_outputs, epochs=epochs, bias=bias, class1=class1)
+                        use_bias=use_bias, weights=weights, number_outputs=number_outputs, epochs=epochs, bias=bias, class1=class1, vectorizar=vectorizar)
         self.__train_set = TRAINING_SET
         self.train([TRAINING_SET[1], TRAINING_SET[2]], X=TRAINING_SET[0])
 
